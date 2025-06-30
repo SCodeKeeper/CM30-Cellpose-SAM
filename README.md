@@ -79,18 +79,53 @@ The computations takes a very long time, and a good computer is necessary for th
 
 ## 🧠 Classification Logic
 
+### Cells states
 **Cell states (based on frame range):**
 
 * Frames 0 → N/3: Circular (pre-fixation)
 * N/3 → 2N/3: Fixed
 * 2N/3 → End: Dead (post-fixation)
 
-**Fragments (4 types):**
+### Fragment Classification Logic
 
-* Small area
-* High eccentricity
-* Low solidity
-* Irregular shape
+The following is a heuristic-based classification logic used to classify segmented fragments into four biologically meaningful categories, based on morphological properties:
+
+```python
+if area < 40 and ecc > 0.9:
+    cls = 0  # apoptotic
+elif sol < 0.75:
+    cls = 1  # necrotic
+elif ecc > 0.9:
+    cls = 2  # fixed
+else:
+    cls = 3  # regular round
+```
+
+#### 📋 Explanation
+
+| Class | Condition                   | Biological Interpretation                               |
+| ----- | --------------------------- | ------------------------------------------------------- |
+| `0`   | `area < 40` and `ecc > 0.9` | **Apoptotic**: small and elongated fragments            |
+| `1`   | `sol < 0.75`                | **Necrotic**: low solidity, irregular/loss of integrity |
+| `2`   | `ecc > 0.9`                 | **Fixed**: elongated or spindle-shaped cells            |
+| `3`   | *(default)*                 | **Regular round**: healthy-looking circular cells       |
+
+#### 🔍 Shape Descriptors Used
+
+* **Area**: Number of pixels in the object — small area often indicates cell debris.
+
+* **Eccentricity**: Measures elongation (0 = perfect circle, 1 = a line).
+
+* **Solidity**: Ratio of contour area to convex hull — lower values mean irregular shapes.
+
+#### 🧬 Biological Rationale
+
+* **Apoptotic cells** shrink and may appear both **small** and **elongated**.
+* **Necrotic cells** often rupture, resulting in **irregular, concave shapes**.
+* **Fixed cells** tend to **stretch and elongate**, especially after attachment.
+* **Regular cells** remain **round and symmetric**, indicating healthy morphology.
+
+You can adjust these thresholds based on dataset variability or add more shape descriptors (e.g., circularity, aspect ratio) if needed.
 
 ---
 

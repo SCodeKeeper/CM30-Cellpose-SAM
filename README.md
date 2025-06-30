@@ -1,5 +1,7 @@
 # Cell Segmentation and Fragment Classification using Cellpose 4
 
+*Date: June 30 2025*
+
 This project performs automatic segmentation of cells in time-lapse microscopy images using **Cellpose 4 (SAM)**, and classifies each frame by:
 - **Cell state**: Circular, Fixed, Dead
 - **Fragments**: Four types of abnormal morphology
@@ -33,7 +35,7 @@ To analyze **cell seeding efficiency** and detect morphological changes over tim
 Multi-frame `.tif` microscopy file, e.g.:
 
 ```python
-image_stack = imread("Hela_CM30.tif")
+image_stack = imread("CM30.tif")
 ```
 
 ---
@@ -63,9 +65,15 @@ pip install cellpose scikit-image opencv-python matplotlib pandas
 
 ## 🚀 Usage
 
-1. Place your `.tif` file in the root or data folder
-2. Run the notebook: `25_cellpose_sam_spheres.ipynb`
-3. Check the `/results` folder for outputs (videos and CSV)
+Depending on the preference, you can check upload the project to Google Colab for better performance, or to clone the repository locally. Either way, the `projectPath` variable must point to the root directory of the project, ensuring that the project structure is respected, otherwise, files won't be read.
+
+The computations takes a very long time, and a good computer is necessary for this tasks.
+
+1. Clone the project, or upload to Google Drive
+2. Check the project structure
+3. Modify `projectPath` accordingly. If Google Colab is not used, ignore executing the google colab dependencies.
+4. Run the notebook: `CM30_cellpose.ipynb`
+5. Check the `/results` folder for outputs (AVI videos and CSV)
 
 ---
 

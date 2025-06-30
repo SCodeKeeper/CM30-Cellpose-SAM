@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+
+# Intermediary Exported Files  
+media/CM30.tif
+results/segmentation/segmentation_data.npz
+results/segmentation/segmentation_results.pkl
